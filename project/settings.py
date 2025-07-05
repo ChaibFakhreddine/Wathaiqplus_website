@@ -3,6 +3,7 @@ import os
 import dj_database_url
 from dotenv import load_dotenv
 import logging
+import dj_database_url
 
 # Load environment variables
 load_dotenv()
@@ -11,7 +12,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY", 'django-insecure-key')
 DEBUG = os.getenv("DEBUG", "False") == "True"
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['wathaiqplus.onrender.com']  # ou le nom de ton domaine Render
+
 
 INSTALLED_APPS = [
     'pages.apps.PagesConfig',
@@ -54,8 +56,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database for Render (uses DATABASE_URL env var if set)
 DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3', conn_max_age=600)
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
